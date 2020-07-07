@@ -25,7 +25,7 @@ const AddButtonElement = styled.button`
  * is defined in App.js
  */
 export const AddButton: React.FC<ButtonProps> = ({ ...props }) => {
-  return <AddButtonElement {...props}>Add</AddButtonElement>
+  return <AddButtonElement data-testid="material-tool-add-btn" {...props}>Add</AddButtonElement>
 };
 
 const DeleteButtonElement = styled.button`
@@ -53,5 +53,5 @@ const DeleteButtonElement = styled.button`
  * is defined in App.js
  */
 export const DeleteButton: React.FC<ButtonProps> = ({ ...props }) => {
-  return <DeleteButtonElement {...props}>Delete</DeleteButtonElement>
+  return <DeleteButtonElement data-testid="material-tool-delete-btn" {...props}>Delete</DeleteButtonElement>
 };

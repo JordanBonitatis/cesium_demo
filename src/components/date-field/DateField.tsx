@@ -56,7 +56,7 @@ const DateField: React.FC<DateFieldProps> = React.forwardRef(
     return (
       <Container>
         <Label>{label}</Label>
-        <DateInput data-testid="number-field-input" type="date" {...props} ref={ref} />        
+        <DateInput data-testid="date-field-input" type="date" {...props} ref={ref} />        
       </Container>
     );
   }

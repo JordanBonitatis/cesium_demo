@@ -59,7 +59,7 @@ const MaterialTable: React.FC<MaterialTableProps> = React.forwardRef(
             <tbody style={{width: "200px"}}>
               {materials.map(m => {
                 return (
-                  <TableRow
+                  <TableRow                    
                     key={m.id}
                     onSelect={onSelect}
                     material={m}
