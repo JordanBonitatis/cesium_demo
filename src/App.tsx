@@ -121,6 +121,9 @@ function App() {
    * @param {String | Number} value 
    */
   const handleChange = (field: string, value: string | number) => {
+    if (["cost", "volume"].includes(field)) {
+      value = parseFloat(value as string);
+    }
     const materialCopy = Object.assign({}, material, {[field]: value});
     const materialsCopy = [...materials];
     const idx = materials.findIndex((m: any) => m.id === material.id);
@@ -135,7 +138,8 @@ function App() {
     );
   } else {
     const ColorElement = colors[material.color];
-    const totalCost = materials.reduce((a: any, b: any) => a.cost + b.cost);
+    let totalCost = 0;
+    materials.forEach((m: any) => totalCost += m.cost);
     return (
       <div data-testid="cesium-material-tool">
         <PageHeading>Materials</PageHeading>
