@@ -49,8 +49,18 @@ const Green: React.FC<{ label?: string, [x: string]: any }> = ({label, ...props}
   );
 };
 
+const Grey: React.FC<{ label?: string, [x: string]: any }> = ({label, ...props}) => {
+  return (
+    <Container>
+      {label ? <Label>Color</Label> : null}
+      <Color color="#797a82" {...props} />
+    </Container>
+  );
+};
+
 export const colors: {[index: string]: any} = {
   green: Green,
+  grey: Grey,
   purple: Purple,
   teal: Teal,
 }
