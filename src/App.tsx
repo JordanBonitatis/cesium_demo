@@ -49,6 +49,13 @@ const InputContainer = styled.div`
   margin: 50px 0 0 10px;
 `;
 
+const TotalCost = styled.div`
+  color: #ddddde;
+  font-family: Arial;
+  font-size: 14px;
+  margin-top: 20px;
+`;
+
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [materials, setMaterials] = useState();
@@ -124,13 +131,13 @@ function App() {
   
   if (isLoading) {
     return (
-      <span>Loading...</span>
+      <span data-testid="cesium-material-loading">Loading...</span>
     );
   } else {
-    console.log(materials);
     const ColorElement = colors[material.color];
+    const totalCost = materials.reduce((a: any, b: any) => a.cost + b.cost);
     return (
-      <div>
+      <div data-testid="cesium-material-tool">
         <PageHeading>Materials</PageHeading>
 
         <div>
@@ -142,9 +149,17 @@ function App() {
             onSelect={m => setMaterial(m)}
             selectedId={material.id}
           />
+          <TotalCost>
+            <span style={{float: "left"}}>Total Cost:</span>
+            {/* I would alway avoid using `any`. In fact, its very painful for me to do this now, */}
+            {/* even at 2:40 in the morning - lol */}
+            <span data-testid="material-tool-total-cost" style={{float: "right"}}>${totalCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+          </TotalCost>
           </div>
 
           <InputContainer>
+            {/* Note that I started using inline styles here because I was running short on time */}
+            {/* I would prefer to have everything either as styled-components or in CSS */}
             <div style={{float: "left", marginLeft: "10px", width: "40%"}}>
               <TextField
                 label="Name"

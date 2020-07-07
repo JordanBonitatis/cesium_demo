@@ -60,7 +60,7 @@ const ColorWrapper = styled.div`
 const TableRow: React.FC<MaterialCellProps> = ({ isSelected, material, onSelect }: MaterialCellProps) => {
   const Color = colors[material.color];
   return (
-    <TableRowElement isSelected={isSelected}>
+    <TableRowElement data-testid={`material-table-row-${material.id}`} isSelected={isSelected}>
       <TableCellElement onClick={() => onSelect(material)} isSelected={isSelected}>
         <div>
           <ColorWrapper>

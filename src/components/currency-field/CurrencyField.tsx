@@ -58,7 +58,7 @@ const CurrencyField: React.FC<CurrencyFieldProps> = React.forwardRef(
     return (
       <Container>
         <Label>{label}</Label>
-        <CurrencyInput data-testid="number-field-input" step=".01" type="number" {...props} ref={ref} />        
+        <CurrencyInput data-testid="currency-field-input" step=".01" type="number" {...props} ref={ref} />        
       </Container>
     );
   }
