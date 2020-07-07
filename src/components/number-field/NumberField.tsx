@@ -17,8 +17,8 @@ const Container = styled.div`
 `;
 
 const NumberInput = styled.input<NumberFieldProps>`
-  background: #ffffff;
-  border: 1px solid #010042;
+  background: #515158;
+  border: none;
   border-radius: 4px;
   box-sizing: border-box;
   color: #040405;
@@ -29,7 +29,7 @@ const NumberInput = styled.input<NumberFieldProps>`
   text-align: right;
   width: 100%;
   &:hover {
-    border: 2px solid #0f0ccc;
+    border: 1px solid #787879;
     padding: 9.5px 11px 9.5px 11px;
   }
   &:disabled {
@@ -39,7 +39,7 @@ const NumberInput = styled.input<NumberFieldProps>`
     }
   }
   &:focus {
-    border: 2px solid #4441ff;
+    border: 1px solid #ddddde;
     padding: 9.5px 11px 9.5px 11px;
     outline: none;
   }
@@ -49,9 +49,7 @@ const NumberField: React.FC<NumberFieldProps> = React.forwardRef(
   ({ label, ...props }: NumberFieldProps, ref?: React.Ref<HTMLInputElement>) => {
     return (
       <Container>
-        <Label>
-          {label}
-        </Label>
+        <Label>{label}</Label>
         <NumberInput data-testid="number-field-input" step="1" type="number" {...props} ref={ref} />        
       </Container>
     );
