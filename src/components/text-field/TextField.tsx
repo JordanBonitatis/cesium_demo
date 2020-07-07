@@ -18,7 +18,7 @@ const Container = styled.div`
 
 const TextInput = styled.input<TextFieldProps>`
   background: #515158;
-  border: 1px solid #010042;
+  border: none;
   border-radius: 4px;
   box-sizing: border-box;
   color: #040405;
@@ -28,7 +28,7 @@ const TextInput = styled.input<TextFieldProps>`
   padding: 9.5px 12px 9.5px 12px;
   width: 100%;
   &:hover {
-    border: 2px solid #0f0ccc;
+    border: 1px solid #787879;
     padding: 9.5px 11px 9.5px 11px;
   }
   &:disabled {
@@ -38,7 +38,7 @@ const TextInput = styled.input<TextFieldProps>`
     }
   }
   &:focus {
-    border: 2px solid #4441ff;
+    border: 1px solid #ddddde;
     padding: 9.5px 11px 9.5px 11px;
     outline: none;
   }
@@ -48,9 +48,7 @@ const TextField: React.FC<TextFieldProps> = React.forwardRef(
   ({ label, ...props }: TextFieldProps, ref?: React.Ref<HTMLInputElement>) => {
     return (
       <Container>
-        <Label>
-          {label}
-        </Label>
+        <Label>{label}</Label>
         <TextInput data-testid="text-field-input" {...props} ref={ref} />        
       </Container>
     );
