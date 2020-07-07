@@ -1,5 +1,13 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## To Launch The Demo
+1. Install the project
+`npm install`
+2. Start the mock API:
+`npm run start-mock-api`
+3. Start the dev server
+`npm run start`
+
 ## Available Scripts
 
 In the project directory, you can run:
