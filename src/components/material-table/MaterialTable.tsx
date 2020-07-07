@@ -1,21 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { colors } from '../colors';
+import { Material } from './MaterialInterface';
 
-interface Material {
-  id: number;
-  name: string;
-  volume: number;
-  deliverDate: Date;
-  color: string;
-  cost: number;
-}
+import {AddButton, DeleteButton} from './Buttons';
+import TableRow from './MaterialRow';
 
 export interface MaterialTableProps {
   materials: Material[];
+  onAdd: () => void;
+  onDelete: (materialId: string) => void;
   onSelect: (material: Material) => void;
-  selectedId: number | undefined;
+  selectedId: string | undefined;
 }
 
 interface MaterialCellProps {
@@ -27,7 +23,7 @@ interface MaterialCellProps {
 const TableWrapper = styled.div`
   background: #0f0f13;  
   border: 1px solid #606071;
-  margin: 30px 0 0 0;
+  margin: 20px 0 0 0;
   height: 400px;
   width: 200px;
 `;
@@ -37,84 +33,38 @@ const TableElement = styled.table`
   width: 200px;
 `;
 
-const TableRowElement = styled.tr<{ isSelected: boolean }>`
-  background-color: ${(props) => (props.isSelected ? '#050382' : '#0f0f13')};
-  cursor: pointer;
-  line-height: 20px;
-  &:hover {
-    > td {
-      background-color: ${(props) => (props.isSelected ? '#050382' : '#13113c')};
-    }
-  }
-`;
-
-const TableCellElement = styled.td<{ isSelected: boolean }>`
-  border-bottom: 1px solid #606071;  
-  color: #ffffff;
-  position: relative;
-  font-size: 14px;
-  line-height: 14px;
-  height: 40px;
-  padding: 0;
-  text-align: top;
-`;
-
-const MaterialTitle = styled.div`
-  font-family: Arial;
-  font-size: 14px;
-  font-weight: 600;
-  margin-left: 45px;
-`;
-
-
-const MaterialVolume = styled.div`
-  font-family: Arial;
-  font-size: 11px;
-  margin-left: 45px;
-`;
-
-const ColorWrapper = styled.div`
-  display: block;
-  margin: 5px;
-`;
-
-const TableRow: React.FC<MaterialCellProps> = ({ isSelected, material, onSelect }: MaterialCellProps) => {
-  const Color = colors[material.color];
-  return (
-    <TableRowElement isSelected={isSelected}>
-      <TableCellElement onClick={() => onSelect(material)} isSelected={isSelected}>
-        <div>
-          <ColorWrapper>
-            <Color style={{height: "30px", width: "30px"}} />
-          </ColorWrapper>
-          <MaterialTitle>{material.name}</MaterialTitle>
-          <MaterialVolume>{material.volume}&nbsp;m<sup>3</sup></MaterialVolume>
-        </div>
-      </TableCellElement>
-    </TableRowElement>
-  )
-}
-
 const MaterialTable: React.FC<MaterialTableProps> = React.forwardRef(
-  ({ materials, onSelect, selectedId }: MaterialTableProps, ref?: React.Ref<HTMLInputElement>) => {    
-    console.log(materials);
+  ({ materials, onAdd, onDelete, onSelect, selectedId }: MaterialTableProps, ref?: React.Ref<HTMLInputElement>) => {
+    
+    const handleDelete = () => {
+      if (selectedId) {
+        onDelete(selectedId);
+      }
+    };
+
     return (
-      <TableWrapper>
-        <TableElement>
-          <tbody>
-            {materials.map(m => {
-              return (
-                <TableRow
-                  key={m.id}
-                  onSelect={onSelect}
-                  material={m}
-                  isSelected={selectedId === m.id}
-                />
-              );
-            })}
-          </tbody>
-        </TableElement>
-      </TableWrapper>
+      <div>
+        <div>
+          <AddButton onClick={onAdd} />
+          <DeleteButton disabled={selectedId === undefined} onClick={handleDelete} />
+        </div>
+        <TableWrapper>
+          <TableElement>
+            <tbody>
+              {materials.map(m => {
+                return (
+                  <TableRow
+                    key={m.id}
+                    onSelect={onSelect}
+                    material={m}
+                    isSelected={selectedId === m.id}
+                  />
+                );
+              })}
+            </tbody>
+          </TableElement>
+        </TableWrapper>
+      </div>
     );
   }
 );

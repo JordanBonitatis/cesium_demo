@@ -21,7 +21,7 @@ const NumberInput = styled.input<NumberFieldProps>`
   border: none;
   border-radius: 4px;
   box-sizing: border-box;
-  color: #040405;
+  color: #ddddde;
   display: block;
   font-size: 14px;
   height: 40px;
