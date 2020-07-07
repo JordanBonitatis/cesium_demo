@@ -1,3 +1,7 @@
+/**
+ * Stylized table to display all of the materials a user has in the array provided
+ * by the API. I implemented this with only one or two records. We 
+ */
 import React from 'react';
 import styled from 'styled-components';
 
@@ -24,6 +28,8 @@ const TableWrapper = styled.div`
   background: #0f0f13;  
   border: 1px solid #606071;
   margin: 20px 0 0 0;
+  overflow: hidden;
+  overflow-y: auto;
   height: 400px;
   width: 200px;
 `;
@@ -50,7 +56,7 @@ const MaterialTable: React.FC<MaterialTableProps> = React.forwardRef(
         </div>
         <TableWrapper>
           <TableElement>
-            <tbody>
+            <tbody style={{width: "200px"}}>
               {materials.map(m => {
                 return (
                   <TableRow

@@ -1,3 +1,8 @@
+/**
+ * Stylized implementation of the Row element within the Material Table
+ * Handles onHover and, onClick. Note that the onClick prop is coming from
+ * App, and is setting the selected material to that represented by the row
+ */
 import React from 'react';
 import styled from 'styled-components';
 
@@ -59,6 +64,7 @@ const TableRow: React.FC<MaterialCellProps> = ({ isSelected, material, onSelect 
       <TableCellElement onClick={() => onSelect(material)} isSelected={isSelected}>
         <div>
           <ColorWrapper>
+            {/*  Inline style here to handle the smaller row-height  */}
             <Color style={{height: "30px", width: "30px"}} />
           </ColorWrapper>
           <MaterialTitle>{material.name}</MaterialTitle>

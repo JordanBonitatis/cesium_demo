@@ -1,3 +1,10 @@
+/**
+ * Basic date picker. In a real-world scenario, we could add
+ * validation to ensure that the date was always sometime in the future 
+ * for new materials. Or we would disable this input if we knew that the order
+ * was completely executed.
+ */
+
 import React from 'react';
 import styled from 'styled-components';
 

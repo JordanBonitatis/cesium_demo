@@ -1,3 +1,9 @@
+/**
+ * Color Componens, and named colors, for easy implementation of the color icon.
+ * In a real-world scenario, we would probably randomly generate a HEX value and simply
+ * provide that, rather than try to create a huge list of pre-existing color components.
+ */
+
 import React from 'react';
 import styled from 'styled-components';
 
