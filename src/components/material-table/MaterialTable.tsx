@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { colors } from '../colors';
+
 interface Material {
   id: number;
   name: string;
@@ -12,11 +14,14 @@ interface Material {
 
 export interface MaterialTableProps {
   materials: Material[];
+  onSelect: (material: Material) => void;
+  selectedId: number | undefined;
 }
 
 interface MaterialCellProps {
-  material: Material;
   isSelected: boolean;
+  material: Material;
+  onSelect: (material: Material) => void;  
 }
 
 const TableWrapper = styled.div`
@@ -32,11 +37,13 @@ const TableElement = styled.table`
   width: 200px;
 `;
 
-const TableRowElement = styled.tr`
+const TableRowElement = styled.tr<{ isSelected: boolean }>`
+  background-color: ${(props) => (props.isSelected ? '#050382' : '#0f0f13')};
+  cursor: pointer;
   line-height: 20px;
   &:hover {
     > td {
-      background-color: #010042;
+      background-color: ${(props) => (props.isSelected ? '#050382' : '#13113c')};
     }
   }
 `;
@@ -56,17 +63,32 @@ const MaterialTitle = styled.div`
   font-family: Arial;
   font-size: 14px;
   font-weight: 600;
-  position: absolute:
-  top: 0;
+  margin-left: 45px;
 `;
 
 
-const TableRow: React.FC<MaterialCellProps> = ({ material, isSelected }: MaterialCellProps) => {
+const MaterialVolume = styled.div`
+  font-family: Arial;
+  font-size: 11px;
+  margin-left: 45px;
+`;
+
+const ColorWrapper = styled.div`
+  display: block;
+  margin: 5px;
+`;
+
+const TableRow: React.FC<MaterialCellProps> = ({ isSelected, material, onSelect }: MaterialCellProps) => {
+  const Color = colors[material.color];
   return (
-    <TableRowElement>
-      <TableCellElement isSelected={isSelected}>
-        <div>          
+    <TableRowElement isSelected={isSelected}>
+      <TableCellElement onClick={() => onSelect(material)} isSelected={isSelected}>
+        <div>
+          <ColorWrapper>
+            <Color style={{height: "30px", width: "30px"}} />
+          </ColorWrapper>
           <MaterialTitle>{material.name}</MaterialTitle>
+          <MaterialVolume>{material.volume}&nbsp;m<sup>3</sup></MaterialVolume>
         </div>
       </TableCellElement>
     </TableRowElement>
@@ -74,13 +96,22 @@ const TableRow: React.FC<MaterialCellProps> = ({ material, isSelected }: Materia
 }
 
 const MaterialTable: React.FC<MaterialTableProps> = React.forwardRef(
-  ({ materials }: MaterialTableProps, ref?: React.Ref<HTMLInputElement>) => {    
+  ({ materials, onSelect, selectedId }: MaterialTableProps, ref?: React.Ref<HTMLInputElement>) => {    
     console.log(materials);
     return (
       <TableWrapper>
         <TableElement>
           <tbody>
-            {materials.map(m => <TableRow key={m.id} material={m} isSelected={false} />)}
+            {materials.map(m => {
+              return (
+                <TableRow
+                  key={m.id}
+                  onSelect={onSelect}
+                  material={m}
+                  isSelected={selectedId === m.id}
+                />
+              );
+            })}
           </tbody>
         </TableElement>
       </TableWrapper>
