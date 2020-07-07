@@ -1,5 +1,5 @@
 {
-  "name": "cesium-demo",
+  "name": "@cesium/bonitatis-demo",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
