@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
+import styled from 'styled-components';
 
 import MaterialTable from './components/material-table';
 
@@ -22,7 +23,7 @@ const dummyMaterial = {
   cost: 0,
 };
 
-const availableColors = [];
+const availableColors: string[] = [];
 for (const color of Object.keys(colors)) {
   if (color !== "grey") {
     availableColors.push(color);
@@ -33,9 +34,16 @@ const newMaterial = {
   name: "New Material",
   volume: 0,
   deliverDate: "",
-  color: availableColors[Math.floor(Math.random() * availableColors.length)],
   cost: 0,
 };
+
+const InputContainer = styled.div`
+  background-color: #0f0f12;  
+  float: right;
+  height: 330px;
+  padding: 20px 20px 50px 20px;
+  margin: 50px 0 0 10px;
+`;
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -55,7 +63,13 @@ function App() {
 
   const handleAdd = () => {
     const materialsCopy = [...materials];
-    const addition = Object.assign({ id: uuid() }, newMaterial);
+    const addition = Object.assign(
+      {
+        id: uuid(),
+        color: availableColors[Math.floor(Math.random() * availableColors.length)]
+      },
+      newMaterial,
+    );
     materialsCopy.push(addition);
     setMaterials(materialsCopy);
     setMaterial(addition);
@@ -68,6 +82,15 @@ function App() {
     setMaterials(materialsCopy);
     setMaterial(materialsCopy.length ? materialsCopy[0] : dummyMaterial);
   };
+
+  const handleChange = (field: string, value: string | number) => {
+    const materialCopy = Object.assign({}, material, {[field]: value});
+    const materialsCopy = [...materials];
+    const idx = materials.findIndex((m: any) => m.id === material.id);
+    materialsCopy[idx] = materialCopy;
+    setMaterials(materialsCopy);
+    setMaterial(materialCopy);
+  }
   
   if (isLoading) {
     return (
@@ -78,20 +101,47 @@ function App() {
     const ColorElement = colors[material.color];
     return (
       <div>
-        <MaterialTable
-          materials={materials || []}
-          onAdd={handleAdd}
-          onDelete={handleDelete}
-          onSelect={m => setMaterial(m)}
-          selectedId={material.id}
-        />
+        <PageHeading>Materials</PageHeading>
 
-        <PageHeading>Materials</PageHeading>      
-        <CurrencyField label={<span>Cost&nbsp;(USD per m<sup>3</sup>)</span>} value={material.cost} />
-        <ColorElement label="Color" />
-        <TextField label="Name" value={material.name} />
-        <NumberField label={<span>Volume&nbsp;(m<sup>3</sup>)</span>} value={material.volume} />
-        <DateField label="Delivery Date" value={material.deliverDate} />
+        <div>
+          <div style={{float: "left"}}>
+          <MaterialTable
+            materials={materials || []}
+            onAdd={handleAdd}
+            onDelete={handleDelete}
+            onSelect={m => setMaterial(m)}
+            selectedId={material.id}
+          />
+          </div>
+
+          <InputContainer>
+            <div style={{float: "left", marginLeft: "10px", width: "40%"}}>
+              <TextField
+                label="Name"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange("name", e.currentTarget.value)}
+                value={material.name}
+              />
+              <NumberField
+                label={<span>Volume&nbsp;(m<sup>3</sup>)</span>}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange("volume", e.currentTarget.value)}
+                value={material.volume}
+              />
+              <DateField
+                label="Delivery Date"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange("deliverDate", e.currentTarget.value)}
+                value={material.deliverDate}
+              />
+            </div>
+            <div style={{float: "right", width: "40%"}}>
+              <ColorElement label="Color" />
+              <CurrencyField
+                label={<span>Cost&nbsp;(USD per m<sup>3</sup>)</span>}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange("cost", e.currentTarget.value)}
+                value={material.cost}
+              />
+            </div>
+          </InputContainer>
+        </div>
       </div>
     );
   }
