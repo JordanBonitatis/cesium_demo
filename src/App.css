@@ -2,4 +2,5 @@ body {
   background-color: #232222;
   margin: auto;
   width: 70%;
+  max-width: 1000px;
 }
