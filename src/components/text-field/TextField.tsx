@@ -1,3 +1,8 @@
+/**
+ * Basic text field component
+ * Expects an onChange handler in props
+ */
+
 import React from 'react';
 import styled from 'styled-components';
 

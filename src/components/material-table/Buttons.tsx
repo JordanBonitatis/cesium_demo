@@ -18,6 +18,12 @@ const AddButtonElement = styled.button`
   height: 30px;
 `;
 
+/**
+ * The add button. Accepts all standard `button` element props.
+ * Expects an onClick handler.
+ * Implemented in MaterialTable, while the handleAdd function 
+ * is defined in App.js
+ */
 export const AddButton: React.FC<ButtonProps> = ({ ...props }) => {
   return <AddButtonElement {...props}>Add</AddButtonElement>
 };
@@ -40,6 +46,12 @@ const DeleteButtonElement = styled.button`
   }
 `;
 
+/**
+ * The delete button. Accepts all standard `button` element props.
+ * Expects an onClick handler.
+ * Implemented in MaterialTable, while the handleDelete function
+ * is defined in App.js
+ */
 export const DeleteButton: React.FC<ButtonProps> = ({ ...props }) => {
   return <DeleteButtonElement {...props}>Delete</DeleteButtonElement>
 };

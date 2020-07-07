@@ -1,3 +1,10 @@
+/**
+ * Number input field. Steps are integers. In a real-world scenario,
+ * we could enforce this on the handleChange function, but I wasn't sure
+ * if we wanted or needed to limit this to integers or we could use decimals.
+ * Expects an onChange handler in props
+ */
+
 import React from 'react';
 import styled from 'styled-components';
 

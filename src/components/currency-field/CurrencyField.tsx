@@ -1,3 +1,11 @@
+/**
+ * The currency field is a basic input with type `number`.
+ * I set the step to .01 as a basic attempt to give it currency-like
+ * precision. If the numbers got large enough, we would have to be even more precise.
+ * Additionally, in a real-world scenario, I would add validation to ensure
+ * that the user hadn't accidentall input a negative, for example.
+ */
+
 import React from 'react';
 import styled from 'styled-components';
 

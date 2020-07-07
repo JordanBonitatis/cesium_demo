@@ -23,6 +23,10 @@ const dummyMaterial = {
   cost: 0,
 };
 
+/**
+ * Grey is a reserved color so we use this array when assigning
+ * a random color to a newly created material
+ */
 const availableColors: string[] = [];
 for (const color of Object.keys(colors)) {
   if (color !== "grey") {
@@ -61,6 +65,10 @@ function App() {
     )
   }, []);
 
+  /**
+   * Add a new material
+   * We use the newMaterial const and add a UUID and a random color here at runtime
+   */
   const handleAdd = () => {
     const materialsCopy = [...materials];
     const addition = Object.assign(
@@ -75,14 +83,36 @@ function App() {
     setMaterial(addition);
   };
 
+  /**
+   * Delete a material from the array
+   * In a real-world scenario, this would probably be an event
+   * in which we would want to make a PUT request to save the change
+   * on the server
+   * NOTE: I made copies of the materials array so we weren't modify 
+   * the referenced object in state, which can lead to weird behavior
+   * @param {String} materialId: the id of the material to remove
+   */
   const handleDelete = (materialId: string) => {
     const materialsCopy = [...materials];
     const idx = materials.findIndex((m: any) => m.id === materialId);
     materialsCopy.splice(idx, 1);
     setMaterials(materialsCopy);
-    setMaterial(materialsCopy.length ? materialsCopy[0] : dummyMaterial);
+    if (materialsCopy.length) {      
+      setMaterial(idx > 0 ? materialsCopy[idx -1] : materialsCopy[0]);
+    } else {
+      setMaterial(dummyMaterial);
+    }
   };
 
+  /**
+   * Update an inpute field
+   * In a real-world scenario, we'd probably want to make a PUT request
+   * to update these changes server-side, too
+   * NOTE: like above, changes are made to a copy and then calling setState,
+   * to avoid modifying the referenced object in state
+   * @param {String} field 
+   * @param {String | Number} value 
+   */
   const handleChange = (field: string, value: string | number) => {
     const materialCopy = Object.assign({}, material, {[field]: value});
     const materialsCopy = [...materials];
