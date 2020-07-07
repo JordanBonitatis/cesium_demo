@@ -17,7 +17,7 @@ const Container = styled.div`
 `;
 
 const DateInput = styled.input<DateFieldProps>`
-  background: #ffffff;
+  background: #515158;
   border: 1px solid #010042;
   border-radius: 4px;
   box-sizing: border-box;
