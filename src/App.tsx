@@ -1,24 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
+
+import CurrencyField from './components/currency-field';
+import DateField from './components/date-field';
+import PageHeading from './components/page-heading';
+import NumberField from './components/number-field';
+import TextField from './components/text-field';
+
 import './App.css';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <PageHeading>Materials</PageHeading>      
+      <CurrencyField label={<span>Cost&nbsp;(USD per m<sup>3</sup>)</span>} />
+      <TextField label="Name" />
+      <NumberField label={<span>Volume&nbsp;(m<sup>3</sup>)</span>} />
+      <DateField label="Delivery Date" />
     </div>
   );
 }
