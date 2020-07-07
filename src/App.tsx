@@ -139,7 +139,7 @@ function App() {
   } else {
     const ColorElement = colors[material.color];
     let totalCost = 0;
-    materials.forEach((m: any) => totalCost += m.cost);
+    materials.forEach((m: any) => totalCost += m.volume * m.cost);
     return (
       <div data-testid="cesium-material-tool">
         <PageHeading>Materials</PageHeading>

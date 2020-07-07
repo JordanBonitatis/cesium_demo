@@ -99,7 +99,7 @@ describe('Cesium Material Form', () => {
       const r = render(<App />);
       process.nextTick(() => {
         fireEvent.click(r.getByTestId("material-tool-total-cost"));
-        expect(r.getByTestId("material-tool-total-cost")).toHaveTextContent("$15,000.00");
+        expect(r.getByTestId("material-tool-total-cost")).toHaveTextContent("$4,450,000.00");
       });
     });
   });
